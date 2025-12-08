@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,37 +11,35 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
+    // 1. Kasih tau Laravel kalau Primary Key kita bukan 'id', tapi 'user_id'
+    protected $primaryKey = 'user_id';
+
     protected $fillable = [
         'name',
         'email',
-        'password',
+        'password_hash', // Sesuaikan nama kolom
+        'role',
+        'status',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
-        'password',
+        'password_hash', // Sembunyikan hash saat return API/Array
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            // Casting password_hash agar di-hash otomatis (Laravel 11 style)
+            'password_hash' => 'hashed', 
         ];
+    }
+
+    // 2. OVERRIDE: Kasih tau Laravel kalau password kita ada di kolom 'password_hash'
+    // Tanpa fungsi ini, Login Breeze TIDAK AKAN JALAN.
+    public function getAuthPassword()
+    {
+        return $this->password_hash;
     }
 }

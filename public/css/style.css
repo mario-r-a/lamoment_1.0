@@ -1,0 +1,54 @@
+/* === Navbar Styling === */
+.navbar {
+    background-color: #f4e1d2;  /* Soft beige (sama dengan footer) */
+}
+
+.navbar-dark .navbar-brand {
+    color: #b4472c;  /* Oranye untuk brand */
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #3b3b3b;  /* Warna teks navbar - dark gray */
+    font-size: 1rem;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+/* Hover effect for links */
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #b4472c;  /* Oranye saat hover */
+}
+
+/* Active link style */
+.navbar-dark .navbar-nav .nav-link.active {
+    color: #b4472c !important;  /* Oranye saat aktif */
+}
+
+/* Navbar Toggler */
+.navbar-toggler {
+    border-color: #b4472c;  /* Border orange untuk toggler */
+}
+
+.navbar-toggler-icon {
+    background-color: #b4472c;  /* Warna icon toggler */
+}
+
+/* Mobile Dropdown Menu */
+.navbar-collapse {
+    background-color: #f4e1d2;  /* Background dropdown di mobile */
+}
+
+/* === Button "Book Now" Styling === */
+.btn-book-now {
+    background-color: #b4472c;
+    padding: 10px 20px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-book-now:hover {
+    background-color: #953a24;  /* Hover effect */
+}
