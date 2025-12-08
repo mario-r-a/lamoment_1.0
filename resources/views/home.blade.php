@@ -5,11 +5,11 @@
 @section('content')
 <div class="container-fluid px-0">
     <!-- Hero Section -->
-    <div class="row">
+    <div class="row align-items-center">
         <!-- Left Side (Text and Button) -->
-        <div class="col-12 col-md-6 d-flex flex-column justify-center align-items-start text-white p-5">
+        <div class="col-12 col-md-6 d-flex flex-column justify-content-center text-white p-5">
             <h1 class="display-4 font-weight-bold mb-4">
-                Audio Guest Books for Unforgettable Weddings.
+                Audio Guest Books for Unforgettable Moments.
             </h1>
             <p class="lead mb-4">
                 Capture voice messages from your loved ones on a retro phone.

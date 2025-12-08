@@ -2,28 +2,31 @@
 
 namespace App\Models;
 
+// ⚠️ PENTING: Jangan pakai 'use Illuminate\Database\Eloquent\Model;'
+// Ganti dengan ini agar fitur Login berfungsi:
+use Illuminate\Foundation\Auth\User as Authenticatable; 
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable // ⚠️ Pastikan extends Authenticatable, BUKAN Model
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    // 1. Kasih tau Laravel kalau Primary Key kita bukan 'id', tapi 'user_id'
+    // Set Primary Key sesuai ERD
     protected $primaryKey = 'user_id';
 
     protected $fillable = [
         'name',
         'email',
-        'password_hash', // Sesuaikan nama kolom
+        'password_hash', // Nama kolom di database
         'role',
         'status',
     ];
 
     protected $hidden = [
-        'password_hash', // Sembunyikan hash saat return API/Array
+        'password_hash',
         'remember_token',
     ];
 
@@ -31,13 +34,13 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            // Casting password_hash agar di-hash otomatis (Laravel 11 style)
-            'password_hash' => 'hashed', 
+            'password_hash' => 'hashed',
         ];
     }
 
-    // 2. OVERRIDE: Kasih tau Laravel kalau password kita ada di kolom 'password_hash'
-    // Tanpa fungsi ini, Login Breeze TIDAK AKAN JALAN.
+    // 🔥 INI KUNCINYA 🔥
+    // Kita harus override fungsi bawaan Laravel.
+    // "Hei Laravel, kalau mau ambil password user ini, ambil dari kolom 'password_hash' ya, bukan 'password' biasa."
     public function getAuthPassword()
     {
         return $this->password_hash;
