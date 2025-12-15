@@ -1,4 +1,4 @@
-<footer class="py-3" style="background-color: #f4e1d2;">
+<footer class="py-3" style="background-color: #f7e1ce;">
     <div class="container text-center">
         <!-- Social Media Icons -->
         <div class="mb-3">
@@ -13,7 +13,7 @@
         <!-- Footer Links -->
         <div class="mb-3">
             <a href="{{ route('home') }}" class="mx-2 text-dark">Home</a>
-            <a href="{{ route('packages') }}" class="mx-2 text-dark">Book Now</a>
+            <a href="{{ route('packages.index') }}" class="mx-2 text-dark">Book Now</a>
             <a href="{{ route('contact') }}" class="mx-2 text-dark">Contact Us</a>
             <a href="{{ route('reviews') }}" class="mx-2 text-dark">Reviews</a>
             <a href="{{ route('faqs') }}" class="mx-2 text-dark">FAQs</a>

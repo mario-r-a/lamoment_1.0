@@ -1,4 +1,4 @@
-<x-guest-layout>
+{{-- <x-guest-layout>
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
@@ -49,4 +49,18 @@
             </x-primary-button>
         </div>
     </form>
+</x-guest-layout> --}}
+
+<!-- Buat Redirect, user can't register -->
+<x-guest-layout>
+    <div class="text-center py-8">
+        <h3 class="text-lg font-semibold mb-2">Redirecting...</h3>
+        <a href="{{ route('home') }}" class="underline text-sm">Go to Home now</a>
+    </div>
+
+    <script>
+        setTimeout(function () {
+            window.location.href = "{{ route('home') }}";
+        }, 3000); // 3000 ms = 3 seconds
+    </script>
 </x-guest-layout>
