@@ -18,7 +18,7 @@
                     <a class="nav-link @if (Route::is('packages')) active @endif" href="{{ route('packages.index') }}">Packages</a>
                 </li>
                 <li class="nav-item me-3">
-                    <a class="nav-link @if (Route::is('faqs')) active @endif" href="{{ route('faqs') }}">FAQs</a>
+                    <a class="nav-link @if (Route::is('faqs.index')) active @endif" href="{{ route('faqs.index') }}">FAQs</a>
                 </li>
                 <li class="nav-item me-3">
                     <a class="nav-link @if (Route::is('reviews')) active @endif" href="{{ route('reviews') }}">Reviews</a>
