@@ -21,7 +21,7 @@
                         <a href="{{ route('reviews') }}" class="btn btn-outline-secondary">
                             <i class="bi bi-chat-left-text me-1"></i> Reviews
                         </a>
-                        <a href="{{ route('faqs') }}" class="btn btn-outline-secondary">
+                        <a href="{{ route('faqs.index') }}" class="btn btn-outline-secondary">
                             <i class="bi bi-question-circle me-1"></i> FAQs
                         </a>
                     </div>

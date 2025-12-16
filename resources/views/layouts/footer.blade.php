@@ -16,7 +16,7 @@
             <a href="{{ route('packages.index') }}" class="mx-2 text-dark">Book Now</a>
             <a href="{{ route('contact') }}" class="mx-2 text-dark">Contact Us</a>
             <a href="{{ route('reviews') }}" class="mx-2 text-dark">Reviews</a>
-            <a href="{{ route('faqs') }}" class="mx-2 text-dark">FAQs</a>
+            <a href="{{ route('faqs.index') }}" class="mx-2 text-dark">FAQs</a>
         </div>
 
         <!-- Copyright -->
