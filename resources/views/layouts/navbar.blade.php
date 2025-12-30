@@ -1,6 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top navbar-custom">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="{{ url('/') }}">Lamoment</a>
+        <a class="navbar-brand fw-bold" href="{{ url('/') }}">
+            <img src="{{ asset('images/navbar/logo_lamoment_3e.png') }}" alt="Lamoment" height="40" class="d-inline-block align-text-top">
+        </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,10 +17,10 @@
                     <a class="nav-link @if (Route::is('home')) active @endif" href="{{ route('home') }}">Home</a>
                 </li>
                 <li class="nav-item me-3">
-                    <a class="nav-link @if (Route::is('packages')) active @endif" href="{{ route('packages.index') }}">Packages</a>
+                    <a class="nav-link @if (Route::is('packages')) active @endif" href="{{ route('packages') }}">Packages</a>
                 </li>
                 <li class="nav-item me-3">
-                    <a class="nav-link @if (Route::is('faqs.index')) active @endif" href="{{ route('faqs.index') }}">FAQs</a>
+                    <a class="nav-link @if (Route::is('faqs.public')) active @endif" href="{{ route('faqs.public') }}">FAQs</a>
                 </li>
                 <li class="nav-item me-3">
                     <a class="nav-link @if (Route::is('reviews')) active @endif" href="{{ route('reviews') }}">Reviews</a>
@@ -56,7 +58,7 @@
                 @else
                     <!-- Book Now Button (jika belum login) - tetap di kanan bersama pages -->
                     <li class="nav-item">
-                        <a href="{{ route('packages.index') }}" class="btn btn-book-now btn-sm px-3 py-2">Book Now</a>
+                        <a href="{{ route('packages') }}" class="btn btn-book-now btn-sm px-3 py-2">Book Now</a>
                     </li>
                 @endauth
             </ul>

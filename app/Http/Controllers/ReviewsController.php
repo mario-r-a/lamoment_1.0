@@ -6,6 +6,6 @@ class ReviewsController extends Controller
 {
     public function index()
     {
-        return view('reviews');
+        return view('public.reviews');
     }
 }

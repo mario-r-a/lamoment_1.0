@@ -15,12 +15,12 @@ class FaqCategoriesController extends Controller
     public function index()
     {
         $categories = FaqCategory::orderBy('position')->paginate(20);
-        return view('faq-categories.index', compact('categories'));
+        return view('admin.faq-categories.index', compact('categories'));
     }
 
     public function create()
     {
-        return view('faq-categories.create');
+        return view('admin.faq-categories.create');
     }
 
     public function store(Request $request)
@@ -31,17 +31,17 @@ class FaqCategoriesController extends Controller
             'position'    => 'nullable|integer',
             'is_active'   => 'nullable|boolean',
         ]);
-
-        $data['is_active'] = $data['is_active'] ?? true;
-
+        // status dropdown: '1' => active, '0' => inactive
+        $data['is_active'] = (int) $request->input('is_active', 0) === 1;
         FaqCategory::create($data);
 
-        return redirect()->route('faq-categories.index')->with('success', 'FAQ Category berhasil dibuat.');
+        return redirect()->route('admin.faq-categories.index')
+            ->with('success', 'FAQ Category berhasil dibuat.');
     }
 
     public function edit(FaqCategory $faqCategory)
     {
-        return view('faq-categories.edit', compact('faqCategory'));
+        return view('admin.faq-categories.edit', compact('faqCategory'));
     }
 
     public function update(Request $request, FaqCategory $faqCategory)
@@ -52,17 +52,18 @@ class FaqCategoriesController extends Controller
             'position'    => 'nullable|integer',
             'is_active'   => 'nullable|boolean',
         ]);
-
-        $data['is_active'] = $data['is_active'] ?? true;
-
+        // dropdown: 1 = active, 0 = inactive
+        $data['is_active'] = (int) $request->input('is_active', 0) === 1;
         $faqCategory->update($data);
 
-        return redirect()->route('faq-categories.index')->with('success', 'FAQ Category berhasil diperbarui.');
+        return redirect()->route('admin.faq-categories.index')
+            ->with('success', 'FAQ Category berhasil diperbarui.');
     }
 
     public function destroy(FaqCategory $faqCategory)
     {
         $faqCategory->delete();
-        return redirect()->route('faq-categories.index')->with('success', 'FAQ Category dihapus.');
+        return redirect()->route('admin.faq-categories.index')
+            ->with('success', 'FAQ Category dihapus.');
     }
 }
