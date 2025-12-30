@@ -9,11 +9,14 @@
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Preload self-hosted fonts -->
+    <link rel="preload" href="{{ asset('fonts/Playfair_Display/PlayfairDisplay-VariableFont_wght.woff2') }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ asset('fonts/PT_Serif/PTSerif-Regular.woff2') }}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{ asset('fonts/PT_Serif/PTSerif-Bold.woff2') }}" as="font" type="font/woff2" crossorigin>
 
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     
-    {{-- Menambahkan yield untuk CSS atau meta tag tambahan (Ideal Inheritance) --}}
+    {{-- Yield untuk CSS atau meta tag tambahan (Inheritance) --}}
     @yield('styles')
 </head>
 <body class="d-flex flex-column min-vh-100">
@@ -30,7 +33,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
-    {{-- Menambahkan yield untuk skrip JS spesifik halaman (Ideal Inheritance) --}}
+    {{-- Yield untuk script JS spesifik halaman (Inheritance) --}}
     @yield('scripts')
 </body>
 </html>

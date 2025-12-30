@@ -16,15 +16,17 @@ class EventsController extends Controller
 
     public function index()
     {
-        $events = Event::with(['client', 'package'])->orderBy('actual_date', 'desc')->paginate(20);
-        return view('events.index', compact('events'));
+        $events = Event::with(['client', 'package'])
+            ->orderBy('actual_date', 'desc')
+            ->paginate(20);
+        return view('admin.events.index', compact('events'));
     }
 
     public function create()
     {
         $clients = Client::orderBy('name')->get();
         $packages = Package::where('is_active', true)->orderBy('name')->get();
-        return view('events.create', compact('clients', 'packages'));
+        return view('admin.events.create', compact('clients', 'packages'));
     }
 
     public function store(Request $request)
@@ -41,14 +43,15 @@ class EventsController extends Controller
 
         Event::create($data);
 
-        return redirect()->route('events.index')->with('success', 'Event berhasil dibuat.');
+        return redirect()->route('admin.events.index')
+            ->with('success', 'Event berhasil dibuat.');
     }
 
     public function edit(Event $event)
     {
         $clients = Client::orderBy('name')->get();
         $packages = Package::where('is_active', true)->orderBy('name')->get();
-        return view('events.edit', compact('event', 'clients', 'packages'));
+        return view('admin.events.edit', compact('event', 'clients', 'packages'));
     }
 
     public function update(Request $request, Event $event)
@@ -65,12 +68,14 @@ class EventsController extends Controller
 
         $event->update($data);
 
-        return redirect()->route('events.index')->with('success', 'Event berhasil diperbarui.');
+        return redirect()->route('admin.events.index')
+            ->with('success', 'Event berhasil diperbarui.');
     }
 
     public function destroy(Event $event)
     {
         $event->delete();
-        return redirect()->route('events.index')->with('success', 'Event dihapus.');
+        return redirect()->route('admin.events.index')
+            ->with('success', 'Event dihapus.');
     }
 }

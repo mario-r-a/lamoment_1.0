@@ -1,3 +1,32 @@
+/* === SELF-HOSTED FONTS === */
+
+/* Playfair Display - Variable Font (for headings) */
+@font-face {
+    font-family: 'Playfair Display';
+    src: url('/fonts/Playfair_Display/PlayfairDisplay-VariableFont_wght.woff2') format('woff2');
+    font-weight: 100 900; /* Variable font range */
+    font-style: normal;
+    font-display: swap;
+}
+
+/* PT Serif - Regular (for body text) */
+@font-face {
+    font-family: 'PT Serif';
+    src: url('/fonts/PT_Serif/PTSerif-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* PT Serif - Bold */
+@font-face {
+    font-family: 'PT Serif';
+    src: url('/fonts/PT_Serif/PTSerif-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
 /* === COLOR PALETTE === */
 :root {
     --primary-beige: #f7e1ce;
@@ -213,8 +242,8 @@
 }
 
 .hero-section .display-4 {
-    color: white;
     font-family: 'Playfair Display', serif;
+    color: white;
     font-weight: 700;
     text-shadow: 0 2px 8px rgba(0,0,0,0.2);
     position: relative;
@@ -307,12 +336,24 @@ footer a:hover {
 
 /* === Font Configuration === */
 body {
+    font-family: 'PT Serif', serif;
     color: var(--text-dark);
     background-color: var(--primary-beige);
 }
 
 h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
     color: var(--primary-maroon);
+}
+
+/* Heading use Playfair */
+.hero-section .display-4 {
+    font-family: 'Playfair Display', serif;
+    color: white;
+    font-weight: 700;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    position: relative;
+    z-index: 1;
 }
 
 a {
