@@ -58,6 +58,20 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Cek Tarif Tol</h5>
+                        <p class="card-text text-muted">Hitung estimasi tarif tol menggunakan Google Routes API.</p>
+                        <div class="mt-auto">
+                            <a href="{{ route('admin.toll.index') }}" class="btn btn-primary">
+                                <i class="bi bi-geo-alt-fill me-1"></i> Cek Tarif
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         @endcan
 
         {{-- CRM (CEO & CMO) --}}

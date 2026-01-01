@@ -10,11 +10,13 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\PartnersController;
 use App\Http\Controllers\EventsController;
+use App\Http\Controllers\TollController;
 use Illuminate\Support\Facades\Route;
 
 // --- PUBLIC ROUTES (Guest + Auth) ---
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 Route::get('/reviews', [ReviewsController::class, 'index'])->name('reviews');
 
 // Public: Packages & FAQs (accessible by anyone)
@@ -105,6 +107,11 @@ Route::middleware('auth')->group(function () {
             'update'  => 'admin.faq-categories.update',
             'destroy' => 'admin.faq-categories.destroy',
         ]);
+
+    // Toll Calculator (Admin only)
+    Route::get('/admin/toll', [TollController::class, 'index'])->name('admin.toll.index');
+    Route::post('/admin/toll/calculate', [TollController::class, 'calculate'])->name('admin.toll.calculate');
+
 });
 
 require __DIR__.'/auth.php';
