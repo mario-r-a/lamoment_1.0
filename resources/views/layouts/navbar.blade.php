@@ -10,11 +10,11 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
-            <!-- Semua item kanan: pages, lalu gap, lalu dashboard, lalu user -->
+            <!-- Semua item kanan: pages, social media, lalu dashboard, lalu user -->
             <ul class="navbar-nav ms-auto align-items-center">
                 <!-- Pages (sekarang berada di kanan, tapi sedikit memberi jarak ke kanan melalui margin) -->
                 <li class="nav-item me-3">
-                    <a class="nav-link @if (Route::is('home')) active @endif" href="{{ route('home') }}">Home</a>
+                    <a class="nav-link @if (Route::is('home')) active @endif" href="{{ route('home') }}">Audio Guest Book</a>
                 </li>
                 <li class="nav-item me-3">
                     <a class="nav-link @if (Route::is('packages')) active @endif" href="{{ route('packages') }}">Packages</a>
@@ -25,8 +25,23 @@
                 <li class="nav-item me-3">
                     <a class="nav-link @if (Route::is('reviews')) active @endif" href="{{ route('reviews') }}">Reviews</a>
                 </li>
+                <li class="nav-item me-3">
+                    <a class="nav-link @if (Route::is('contact')) active @endif" href="{{ route('contact') }}">Contact Us</a>
+                </li>
 
-                {{-- spacer lebih besar antara pages dan admin/dashboard --}}
+                <!-- Social Media Icons (setelah Contact Us, sebelum Book Now) -->
+                <li class="nav-item me-2">
+                    <a href="https://www.instagram.com/lamoment.id/" target="_blank" rel="noopener noreferrer" class="nav-link p-0" style="color: var(--primary-maroon);">
+                        <i class="bi bi-instagram" style="font-size: 1.25rem;"></i>
+                    </a>
+                </li>
+                <li class="nav-item me-3">
+                    <a href="https://www.tiktok.com/@la.moment" target="_blank" rel="noopener noreferrer" class="nav-link p-0" style="color: var(--primary-maroon);">
+                        <i class="bi bi-tiktok" style="font-size: 1.25rem;"></i>
+                    </a>
+                </li>
+
+                {{-- spacer lebih besar antara social media/pages dan admin/dashboard --}}
                 <li class="nav-item me-4 d-none d-lg-block" aria-hidden="true"></li>
 
                 @auth

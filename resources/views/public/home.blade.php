@@ -40,20 +40,39 @@
         </div>
     </div>
 
-    <!-- NEW: Hero section setelah featured brands -->
-    <section class="container py-5">
-        <div class="row align-items-center">
-            <div class="col-12 col-md-6">
-                <h2 class="display-4 font-retro mb-4">Throw out the boring guestbook...</h2>
-                <p class="lead mb-4">
+    <!-- Content Section dengan Auto-Rotating Image Carousel -->
+    <section class="container-fluid px-0">
+        <div class="row align-items-center g-0">
+            <!-- Left-Text -->
+            <div class="col-12 col-lg-6 py-5 px-5">
+                <h2 class="mb-4">Throw Out the Boring Guest Book...</h2>
+                <p class="lead">
                     There's a new way to capture messages from your loved ones. The Off The Hook Audio Guest Book will have your loved ones lining up to leave you voice messages so you can relive your wedding forever.
                 </p>
             </div>
 
-            <div class="col-12 col-md-6 text-center">
-                <img src="{{ asset('images/home/phone.png') }}" alt="Audio Guest Book" class="img-fluid rounded shadow" style="max-width: 90%;">
+            <!-- Right-Image -->
+            <div class="col-12 col-lg-6 p-0" style="min-height: 400px;">
+                <div class="img_slider">
+                    <figure>
+                        <div class="my_slide">
+                            <img src="{{ asset('images/home/hero.jpg') }}" alt="Audio Guest Book" class="w-100 h-100">
+                        </div>
+                        <div class="my_slide">
+                            <img src="{{ asset('images/home/hero.jpg') }}" alt="Audio Guest Book" class="w-100 h-100">
+                        </div>
+                        <div class="my_slide">
+                            <img src="{{ asset('images/home/hero.jpg') }}" alt="Audio Guest Book" class="w-100 h-100">
+                        </div>
+                        <div class="my_slide">
+                            <img src="{{ asset('images/home/hero.jpg') }}" alt="Audio Guest Book" class="w-100 h-100">
+                        </div>
+                    </figure>
+                </div>
             </div>
         </div>
     </section>
+
+    
 </div>
 @endsection

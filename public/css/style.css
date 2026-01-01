@@ -1,15 +1,12 @@
 /* === SELF-HOSTED FONTS === */
-
-/* Playfair Display - Variable Font (for headings) */
 @font-face {
     font-family: 'Playfair Display';
     src: url('/fonts/Playfair_Display/PlayfairDisplay-VariableFont_wght.woff2') format('woff2');
-    font-weight: 100 900; /* Variable font range */
+    font-weight: 700; /* single weight */
     font-style: normal;
     font-display: swap;
 }
 
-/* PT Serif - Regular (for body text) */
 @font-face {
     font-family: 'PT Serif';
     src: url('/fonts/PT_Serif/PTSerif-Regular.woff2') format('woff2');
@@ -17,8 +14,6 @@
     font-style: normal;
     font-display: swap;
 }
-
-/* PT Serif - Bold */
 @font-face {
     font-family: 'PT Serif';
     src: url('/fonts/PT_Serif/PTSerif-Bold.woff2') format('woff2');
@@ -29,85 +24,55 @@
 
 /* === COLOR PALETTE === */
 :root {
-    --primary-beige: #f7e1ce;
+    --playfair-weight: 700;
+    /* --primary-beige: #f7e1ce; */
+    --primary-beige: #FAECDF;
     --primary-taupe: #927458;
     --primary-maroon: #681d1d;
-    --primary-cream: #fffcdc;
+    --primary-maroon-dark: #5a1818;
+    /* --primary-cream: #fffcdc; */
     --text-dark: #2b2b2b;
-    --text-muted: #6b5a4a;
+    /* --text-muted: #6b5a4a; */
 }
 
 /* === Navbar Styling === */
-.navbar {
-    background-color: var(--primary-beige) !important;
-}
-
-.navbar-dark .navbar-brand {
-    color: var(--primary-maroon) !important;
-    font-weight: 700;
-}
-
-.navbar-dark .navbar-nav .nav-link {
-    color: var(--text-muted) !important;
-    font-size: 1rem;
-    font-weight: 500;
-    transition: 0.2s;
-}
-
-/* Hover effect for links */
-.navbar-dark .navbar-nav .nav-link:hover {
-    color: var(--primary-taupe) !important;
-}
-
-/* Active link style */
-.navbar-dark .navbar-nav .nav-link.active {
-    color: var(--primary-taupe) !important;
-}
-
-/* Navbar Toggler */
-.navbar-toggler {
-    border-color: var(--primary-taupe) !important;
-}
-
-.navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23927458' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' d='M6 9h24M6 15h24M6 21h24'/%3e%3c/svg%3e");
-}
-
-/* Mobile Dropdown Menu - transparent by default (desktop)
-   on small screens the expanded collapse will get its own background below */
-.navbar-collapse {
-    background-color: transparent;
-}
-
-/* Target .navbar-custom so other navbars keep default behavior */
-.navbar.navbar-custom{
-    /* semi-transparent yellow at top, fading to near-transparent below
-       reduce top alpha so hero text remains readable */
-    /* sedikit lebih tebal: naikan alpha supaya navbar lebih 'berat' */
+/* Main navbar container & custom navbar-specific override */
+.navbar.navbar-custom {
     background: linear-gradient(180deg, rgba(247,225,206,0.70), rgba(247,225,206,0.45), rgba(247,225,206,0)) !important;
     z-index: 1030;
-    min-height: 72px; /* navbar height */
+    min-height: 72px;
 }
-.navbar.navbar-custom .container{ display:flex; align-items:center; }
-.navbar.navbar-custom .navbar-brand{
+
+.navbar.navbar-custom .container { 
+    display: flex; 
+    align-items: center; 
+}
+
+/* Brand (logo) */
+.navbar.navbar-custom .navbar-brand {
     color: var(--primary-maroon) !important;
     font-size: 1.3rem;
+    font-weight: 700;
     padding: 0.4rem 0;
 }
-.navbar.navbar-custom .nav-link{
-    color: var(--text-muted) !important;
+
+/* Navigation links */
+.navbar.navbar-custom .nav-link {
+    color: var(--primary-maroon) !important;
     font-size: 0.95rem;
     font-weight: 500;
     padding: 0.5rem 0.75rem !important;
     transition: color 0.2s ease;
-    position: relative; /* for underline */
+    position: relative;
 }
+
 .navbar.navbar-custom .nav-link:hover,
 .navbar.navbar-custom .nav-link.active {
-    color: var(--primary-taupe) !important;
+    color: var(--primary-maroon-dark) !important;
 }
-/* Active page underline (subtle, centered) */
-.navbar.navbar-custom .nav-link.active::after{
+
+/* Active page underline indicator */
+.navbar.navbar-custom .nav-link.active::after {
     content: "";
     position: absolute;
     left: 10%;
@@ -118,10 +83,10 @@
     border-radius: 2px;
 }
 
-/* Align and resize Book Now button inside navbar to look balanced with links */
-.navbar.navbar-custom .btn-book-now{
+/* Book Now button in navbar */
+.navbar.navbar-custom .btn-book-now {
     background-color: var(--primary-maroon) !important;
-    color: var(--primary-cream) !important;
+    color: var(--primary-beige) !important;
     padding: 0.55rem 1.25rem !important;
     font-size: 0.95rem !important;
     line-height: 1;
@@ -134,15 +99,15 @@
 }
 
 .navbar.navbar-custom .btn-book-now:hover {
-    background-color: #5a1818 !important;
-    color: var(--primary-cream) !important;
+    background-color: var(--primary-maroon-dark) !important;
+    color: var(--primary-beige) !important;
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(104,29,29,0.25);
 }
 
-/* Dropdown menu styling */
+/* Dropdown menu (user menu when logged in) */
 .navbar.navbar-custom .dropdown-menu {
-    background-color: var(--primary-cream);
+    background-color: var(--primary-beige);
     border: 1px solid rgba(146,116,88,0.15);
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
@@ -158,25 +123,30 @@
     color: var(--primary-maroon);
 }
 
-/* Ensure toggler is vertically centered when navbar is taller */
-.navbar.navbar-custom .navbar-toggler{
+/* Mobile toggler button */
+.navbar.navbar-custom .navbar-toggler {
+    border-color: var(--primary-taupe) !important;
     margin-top: 0;
 }
 
-/* Keep mobile collapsed menu background subtle and consistent (only on small screens) */
+.navbar.navbar-custom .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23927458' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' d='M6 9h24M6 15h24M6 21h24'/%3e%3c/svg%3e");
+}
+
+/* Mobile collapsed menu background */
 @media (max-width: 991.98px) {
-    .navbar.navbar-custom .navbar-collapse{
+    .navbar.navbar-custom .navbar-collapse {
         background: linear-gradient(180deg, rgba(247,225,206,0.95), rgba(247,225,206,0.85));
         margin-top: 0.5rem;
         border-radius: 8px;
-        padding: .5rem;
+        padding: 0.5rem;
     }
 }
 
-/* === Button "Book Now" Styling === */
+/* === Button "Book Now" Styling (standalone, outside navbar) === */
 .btn-book-now {
     background-color: var(--primary-maroon) !important;
-    color: var(--primary-cream) !important;
+    color: var(--primary-beige) !important;
     padding: 10px 20px;
     font-weight: bold;
     text-decoration: none;
@@ -187,7 +157,7 @@
 }
 
 .btn-book-now:hover {
-    background-color: #5a1818 !important;
+    background-color: var(--primary-maroon-dark) !important;
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(104, 29, 29, 0.25);
 }
@@ -245,21 +215,21 @@
     font-family: 'Playfair Display', serif;
     color: white;
     font-weight: 700;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.25);
     position: relative;
     z-index: 1;
 }
 
 .hero-section .lead {
     color: rgba(255,255,255,0.95);
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     position: relative;
     z-index: 1;
 }
 
 /* === Card & White Panel Styling === */
 .card {
-    background-color: var(--primary-cream) !important;
+    background-color: var(--primary-beige) !important;
     border: 1px solid rgba(146, 116, 88, 0.1);
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
@@ -287,18 +257,31 @@
 /* === Footer === */
 footer {
     background-color: var(--primary-beige) !important;
-    color: var(--text-muted);
+    color: var(--primary-taupe);
     border-top: 1px solid rgba(146, 116, 88, 0.15);
 }
 
 footer a {
-    color: var(--primary-taupe);
-    text-decoration: none;
+    color: var(--primary-maroon);
+    text-decoration: underline;
     transition: color 0.2s;
 }
 
 footer a:hover {
-    color: var(--primary-maroon);
+    color: var(--primary-maroon-dark);
+}
+
+/* Footer social media icons */
+footer .bi-instagram,
+footer .bi-tiktok {
+    color: var(--primary-maroon) !important;
+    font-size: 2rem !important;
+    transition: color 0.2s;
+}
+
+footer a:hover .bi-instagram,
+footer a:hover .bi-tiktok {
+    color: var(--primary-maroon-dark) !important;
 }
 
 /* === Alert & Messages === */
@@ -318,7 +301,6 @@ footer a:hover {
 .text-theme-maroon { color: var(--primary-maroon) !important; }
 .text-theme-taupe { color: var(--primary-taupe) !important; }
 .bg-theme-beige { background-color: var(--primary-beige) !important; }
-.bg-theme-cream { background-color: var(--primary-cream) !important; }
 
 /* === Responsive Tweaks === */
 @media (max-width: 767px) {
@@ -341,19 +323,25 @@ body {
     background-color: var(--primary-beige);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6,
+.display-1, .display-2, .display-3, .display-4, .display-5, .display-6 {
     font-family: 'Playfair Display', serif;
+    font-weight: var(--playfair-weight);
     color: var(--primary-maroon);
 }
 
-/* Heading use Playfair */
-.hero-section .display-4 {
+/* Content section heading */
+section h2 {
     font-family: 'Playfair Display', serif;
-    color: white;
+    color: var(--primary-maroon);
     font-weight: 700;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    position: relative;
-    z-index: 1;
+    font-size: 2.5rem;
+}
+
+section .lead {
+    font-family: 'PT Serif', serif;
+    color: var(--text-dark);
+    line-height: 1.8;
 }
 
 a {
@@ -363,4 +351,131 @@ a {
 
 a:hover {
     color: var(--primary-maroon);
+}
+
+.img_slider {
+    width: 100%;
+    overflow: hidden;
+}
+
+.my_slide img {
+    width: 100%;
+}
+
+figure {
+    position: relative;
+    width: 400%;
+    animation: 12s my_slide infinite;
+}
+
+.my_slide {
+    margin-right: 0.25%;
+    position: relative;
+    float: left;
+    width: 24.75%;
+}
+
+@keyframes my_slide{
+    0%{
+        left: 0;
+    }
+    20%{
+        left: 0;
+    }
+    25%{
+        left: -100%;
+    }
+    45%{
+        left: -100%;
+    }
+    50%{
+        left: -200%;
+    }
+    70%{
+        left: -200%;
+    }
+    75%{
+        left: -300%;
+    }
+    95%{
+        left: -300%;
+    }
+    100%{
+        left: 0;
+    }
+}
+
+/* Wave Text Canvas Animation */
+.wave-text-container {
+    width: 100%;
+    height: 300px;
+    background-color: var(--primary-beige);
+    position: relative;
+    overflow: hidden;
+}
+
+#waveCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .wave-text-container {
+        height: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .wave-text-container {
+        height: 150px;
+    }
+}
+
+/* Contact page utilities */
+.btn-send {
+    background-color: var(--primary-maroon);
+    color: var(--primary-beige);
+    border-radius: 4px;
+    font-weight: 500;
+    border: none;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    padding: .5rem 1.25rem;
+}
+
+.btn-send:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(104,29,29,0.12);
+}
+
+/* btn-send hover state */
+.btn-send {
+    transition: background-color 0.18s ease, color 0.18s ease, transform 0.06s ease;
+}
+
+.btn-send:hover,
+.btn-send:active {
+    background-color: var(--primary-taupe);
+    color: var(--primary-beige);
+    transform: translateY(-1px);
+}
+
+/* image subtle border + responsive sizing */
+.img-frame {
+    height: 800px;
+    width: 80%;
+    max-width: 480px;
+    object-fit: cover;
+    border: 1px solid rgba(0,0,0,0.04);
+    margin: 0 auto;
+}
+
+@media (max-width: 991.98px) {
+    .img-frame { width: 60%; max-height: 420px; }
+}
+@media (max-width: 576px) {
+    .img-frame { width: 100%; max-height: 320px; }
 }
