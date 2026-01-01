@@ -20,7 +20,7 @@
             <!-- Contact Options List -->
             <ol class="mb-5" style="color: var(--text-dark);">
                 <li class="mb-2">
-                    Complete the contact form.
+                    Complete the contact form
                 </li>
                 <li class="mb-2">
                     Email us at
@@ -29,11 +29,10 @@
                     </a>
                 </li>
                 <li class="mb-2">
-                    Call us
+                    Call us at
                     <a href="tel:082318606525" class="text-decoration-none" style="color: var(--primary-taupe);">
                         0823-1860-6525
-                    </a> 
-                    <span class="text-dark">(Mon-Sun: 9am-5pm)</span>
+                    </a>
                 </li>
             </ol>
 
@@ -180,4 +179,11 @@
 
 @section('scripts')
     <script src="{{ asset('js/wave-text-canvas.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (document.getElementById('waveCanvas')) {
+                new WaveTextAnimation('waveCanvas', "WE ARE HERE   ");
+            }
+        });
+    </script>
 @endsection
