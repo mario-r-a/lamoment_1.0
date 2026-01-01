@@ -21,4 +21,11 @@
 
 @section('scripts')
     <script src="{{ asset('js/wave-text-canvas.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (document.getElementById('waveCanvasFAQs')) {
+                new WaveTextAnimation('waveCanvasFAQs', "GET CLEAR   ");
+            }
+        });
+    </script>
 @endsection

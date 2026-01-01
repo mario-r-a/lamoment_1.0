@@ -9,16 +9,15 @@ class WaveTextAnimation {
         this.scrollSpeed = 1;
         
         // Wave parameters
-        this.amplitude = 70;
-        this.frequency = 0.003;
-        this.letterSpacing = 40;
+        this.amplitude = 65; // untuk atur tinggi gelombang
+        this.frequency = 0.004; // untuk panjang gelombang/rapat tidaknya, besar = banyak
+        this.letterSpacing = 40; // untuk atur jarak antar huruf
         
         // DPI untuk ketajaman
         this.dpr = window.devicePixelRatio || 1;
         
         this.setupCanvas();
         
-        // 🔥 FIX #1: Hitung initial offset agar text sudah ada di layar dari awal
         // Text mulai dari tengah layar, bukan dari luar
         this.scrollOffset = 0;
         
@@ -32,7 +31,6 @@ class WaveTextAnimation {
     setupCanvas() {
         const rect = this.canvas.getBoundingClientRect();
         
-        // 🔥 FIX #3: Higher DPI untuk text lebih tajam
         this.dpr = Math.max(window.devicePixelRatio || 1, 2); // Minimal 2x untuk ketajaman
         
         this.canvas.width = rect.width * this.dpr;
@@ -45,7 +43,6 @@ class WaveTextAnimation {
         this.centerY = rect.height / 2;
         this.canvasWidth = rect.width;
         
-        // 🔥 FIX #3: Enable font smoothing
         this.ctx.textRendering = 'optimizeLegibility';
     }
     
@@ -54,9 +51,14 @@ class WaveTextAnimation {
         this.ctx.translate(x, y);
         this.ctx.rotate(rotation);
         
-        // 🔥 FIX #3: Font rendering optimization
         this.ctx.font = 'bold 64px "Playfair Display", serif';
+        
+        // COLOR
         this.ctx.fillStyle = '#681d1d';
+        //this.ctx.fillStyle = '#6f7b91';
+        //this.ctx.fillStyle = '#909873';
+        //this.ctx.fillStyle = '#927458';
+
         this.ctx.textAlign = 'center';
         this.ctx.textBaseline = 'middle';
         
@@ -74,7 +76,6 @@ class WaveTextAnimation {
         
         this.scrollOffset += this.scrollSpeed;
         
-        // 🔥 FIX #2: Hitung berapa banyak text yang dibutuhkan untuk fill layar + buffer
         const textWidth = this.text.length * this.letterSpacing;
         const totalTextNeeded = Math.ceil((this.canvasWidth + textWidth * 2) / textWidth) + 2;
         
@@ -85,7 +86,6 @@ class WaveTextAnimation {
             for (let i = 0; i < this.text.length; i++) {
                 const letter = this.text[i];
                 
-                // 🔥 FIX #1 & #2: Posisi X yang benar untuk seamless loop
                 // Text dimulai dari posisi negatif agar sudah visible di awal
                 let x = (i * this.letterSpacing) + copyOffset - (this.scrollOffset % textWidth);
                 
@@ -108,6 +108,9 @@ class WaveTextAnimation {
 }
 
 // Initialize
-document.addEventListener('DOMContentLoaded', () => {
-    new WaveTextAnimation('waveCanvas', "WE ARE HERE   ");
-});
+// document.addEventListener('DOMContentLoaded', () => {
+//     new WaveTextAnimation('waveCanvas', "WE ARE HERE   ");
+// });
+
+// Expose constructor so views can instantiate with custom canvas id + text
+window.WaveTextAnimation = WaveTextAnimation;
