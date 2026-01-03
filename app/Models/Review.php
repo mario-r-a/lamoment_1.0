@@ -19,4 +19,9 @@ class Review extends Model
         'date',
         'is_active'
     ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+        'date' => 'date',
+    ];
 }

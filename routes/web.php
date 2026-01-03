@@ -17,7 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
+
+// PUBLIC reviews routes (visible to guests)
 Route::get('/reviews', [ReviewsController::class, 'index'])->name('reviews');
+Route::post('/reviews', [ReviewsController::class, 'store'])->name('reviews.store');
+Route::get('/reviews/more', [ReviewsController::class, 'more'])->name('reviews.more');
 
 // Public: Packages & FAQs (accessible by anyone)
 Route::get('/packages', [PackagesController::class, 'publicIndex'])->name('packages');
@@ -111,6 +115,22 @@ Route::middleware('auth')->group(function () {
     // Toll Calculator (Admin only)
     Route::get('/admin/toll', [TollController::class, 'index'])->name('admin.toll.index');
     Route::post('/admin/toll/calculate', [TollController::class, 'calculate'])->name('admin.toll.calculate');
+
+    // Admin-only review actions
+    Route::middleware(['auth'])->group(function () {
+        Route::middleware(['can:manage-content'])->group(function () {
+            Route::post('/admin/reviews/toggle-submission', [ReviewsController::class, 'toggleSubmission'])
+                ->name('admin.reviews.toggle-submission');
+            Route::put('/admin/reviews/{review}', [ReviewsController::class, 'update'])
+                ->name('admin.reviews.update');
+            Route::delete('/admin/reviews/{review}', [ReviewsController::class, 'destroy'])
+                ->name('admin.reviews.destroy');
+
+            // Admin create review (manual)
+            Route::post('/admin/reviews', [\App\Http\Controllers\ReviewsController::class, 'adminStore'])
+                ->name('admin.reviews.store');
+        });
+    });
 
 });
 

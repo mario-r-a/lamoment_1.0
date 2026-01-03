@@ -24,7 +24,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             if (document.getElementById('waveCanvasFAQs')) {
-                new WaveTextAnimation('waveCanvasFAQs', "GET CLEAR   ");
+                new WaveTextAnimation('waveCanvasFAQs', "GET CLEAR   ", '#6f7b91');
             }
         });
     </script>

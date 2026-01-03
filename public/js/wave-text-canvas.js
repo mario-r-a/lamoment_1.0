@@ -1,11 +1,12 @@
 // Wave Text Animation with Canvas - FINAL FIX
 class WaveTextAnimation {
-    constructor(canvasId, text) {
+    constructor(canvasId, text, color = '#909873') {
         this.canvas = document.getElementById(canvasId);
         if (!this.canvas) return;
         
         this.ctx = this.canvas.getContext('2d');
         this.text = text;
+        this.color = color; // <-- store color
         this.scrollSpeed = 1;
         
         // Wave parameters
@@ -54,10 +55,12 @@ class WaveTextAnimation {
         this.ctx.font = 'bold 64px "Playfair Display", serif';
         
         // COLOR
-        this.ctx.fillStyle = '#681d1d';
-        //this.ctx.fillStyle = '#6f7b91';
-        //this.ctx.fillStyle = '#909873';
-        //this.ctx.fillStyle = '#927458';
+        //this.ctx.fillStyle = '#681d1d'; //merah maroon
+        //this.ctx.fillStyle = '#6f7b91'; //biru
+        //this.ctx.fillStyle = '#909873'; //hijau
+        //this.ctx.fillStyle = '#927458';//lupa
+        // use instance color (default kept to previous green)
+        this.ctx.fillStyle = this.color;
 
         this.ctx.textAlign = 'center';
         this.ctx.textBaseline = 'middle';
