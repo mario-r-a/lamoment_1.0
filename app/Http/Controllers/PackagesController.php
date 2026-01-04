@@ -12,20 +12,28 @@ class PackagesController extends Controller
         $this->middleware(['auth', 'can:manage-operations'])->except(['publicIndex']);
     }
 
+    // ===== PUBLIC =====
     public function publicIndex()
     {
-        return view('packages');
+        // Eager-load, handle N+1 case
+        $packages = Package::where('is_active', true)
+            ->with(['items'])
+            ->orderBy('name')
+            ->get();
+
+        return view('public.packages', compact('packages'));
     }
 
+    // ===== ADMIN CRUD =====
     public function index()
     {
         $packages = Package::orderBy('name')->paginate(20);
-        return view('packages.index', compact('packages'));
+        return view('admin.packages.index', compact('packages'));
     }
 
     public function create()
     {
-        return view('packages.create');
+        return view('admin.packages.create');
     }
 
     public function store(Request $request)
@@ -38,15 +46,15 @@ class PackagesController extends Controller
         ]);
 
         $data['is_active'] = $data['is_active'] ?? true;
-
         Package::create($data);
 
-        return redirect()->route('packages.index')->with('success', 'Package berhasil dibuat.');
+        return redirect()->route('admin.packages.index')
+            ->with('success', 'Package berhasil dibuat.');
     }
 
     public function edit(Package $package)
     {
-        return view('packages.edit', compact('package'));
+        return view('admin.packages.edit', compact('package'));
     }
 
     public function update(Request $request, Package $package)
@@ -59,15 +67,16 @@ class PackagesController extends Controller
         ]);
 
         $data['is_active'] = $data['is_active'] ?? true;
-
         $package->update($data);
 
-        return redirect()->route('packages.index')->with('success', 'Package berhasil diperbarui.');
+        return redirect()->route('admin.packages.index')
+            ->with('success', 'Package berhasil diperbarui.');
     }
 
     public function destroy(Package $package)
     {
         $package->delete();
-        return redirect()->route('packages.index')->with('success', 'Package dihapus.');
+        return redirect()->route('admin.packages.index')
+            ->with('success', 'Package dihapus.');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use App\Models\User;
@@ -21,36 +22,39 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // UNTUK PAGINATION
+        Paginator::useBootstrapFive();
+
         // --- GATE: USERS MANAGEMENT ---
-        // Spreadsheet: CEO, CFO, CMO, COO bisa Read/Update Own. 
-        // Tapi cuma CEO yang bisa Create/Delete user lain.
+        // CEO, CFO, CMO, COO bisa Read/Update Own. 
+        // Namun hanya CEO yang bisa Create/Delete user lain.
         Gate::define('manage-users', function (User $user) {
             return $user->role === 'CEO';
         });
 
         // --- GATE: FINANCE (Fund Request) ---
-        // Spreadsheet: Fund Request dipegang CEO & CFO. 
-        // CMO & COO cuma bisa create/read tapi terbatas (sesuai tabel).
+        // Fund Request dipegang CEO & CFO.
+        // CMO & COO hanya bisa create/read, tidak bisa delete atau approve.
         Gate::define('manage-finance', function (User $user) {
             return in_array($user->role, ['CEO', 'CFO']);
         });
 
         // --- GATE: CLIENTS & PARTNERS ---
-        // Spreadsheet: Clients & Partners dipegang CEO & CMO.
+        // Clients & Partners dipegang CEO & CMO.
         // CFO & COO biasanya tidak akses create/delete di sini.
         Gate::define('manage-crm', function (User $user) {
             return in_array($user->role, ['CEO', 'CMO']);
         });
 
         // --- GATE: EVENTS & PACKAGES ---
-        // Spreadsheet: Events, Packages, Inventory dipegang CEO, CFO, COO.
+        // Events, Packages, Inventory dipegang CEO, CFO, COO.
         // CMO biasanya Read-only atau terbatas.
         Gate::define('manage-operations', function (User $user) {
             return in_array($user->role, ['CEO', 'CFO', 'COO']);
         });
         
         // --- GATE: REVIEWS & FAQ ---
-        // Spreadsheet: Semua Role Admin (CEO, CFO, CMO, COO) bisa akses penuh
+        // Semua Role Admin (CEO, CFO, CMO, COO) bisa akses penuh
         Gate::define('manage-content', function (User $user) {
             return in_array($user->role, ['CEO', 'CFO', 'CMO', 'COO']);
         });

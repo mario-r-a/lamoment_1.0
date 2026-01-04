@@ -50,7 +50,7 @@
                         </div>
 
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-warning text-white">Log in</button>
+                            <button type="submit" class="btn btn-send">Log in</button>
                         </div>
                     </form>
                 </div>
