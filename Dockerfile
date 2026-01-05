@@ -49,11 +49,7 @@ EXPOSE 8000
 # Create startup script
 RUN echo '#!/bin/bash\n\
 set -e\n\
-echo "Clearing caches..."\n\
-php artisan config:clear\n\
-php artisan cache:clear\n\
-php artisan view:clear\n\
-php artisan route:clear\n\
+echo "Starting application..."\n\
 echo "Running migrations..."\n\
 php artisan migrate --force || true\n\
 echo "Starting server on port ${PORT:-8000}..."\n\
