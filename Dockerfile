@@ -29,8 +29,11 @@ COPY composer.json composer.lock ./
 # Install dependencies
 RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist
 
-# Copy rest of application
+# Copy rest of application (ensure public directory is included)
 COPY . .
+
+# Verify public/css/style.css exists
+RUN ls -la public/css/style.css || echo "WARNING: style.css not found!"
 
 # Generate optimized autoload files
 RUN composer dump-autoload --optimize --no-dev
@@ -57,12 +60,14 @@ EXPOSE 8000
 RUN echo '#!/bin/bash\n\
 set -e\n\
 echo "Starting application..."\n\
+echo "Verifying public assets..."\n\
+ls -la public/css/style.css || echo "ERROR: style.css missing!"\n\
 echo "Creating storage link..."\n\
 php artisan storage:link || true\n\
 echo "Running migrations..."\n\
 php artisan migrate --force || true\n\
 echo "Starting server on port ${PORT:-8000}..."\n\
-exec php artisan serve --host=0.0.0.0 --port=${PORT:-8000}' > /start.sh \
+exec php artisan serve --host=0.0.0.0 --port=${PORT:-8000} --no-reload' > /start.sh \
     && chmod +x /start.sh
 
 # Start application
