@@ -1,8 +1,8 @@
-# Use official PHP 8.4 FPM image as base
-FROM php:8.4-fpm
+# Use official PHP 8.4 CLI image (better for artisan serve)
+FROM php:8.4-cli
 
 # Set working directory
-WORKDIR /var/www
+WORKDIR /var/www/html
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -17,33 +17,38 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     libzip-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy project files
-COPY . /var/www
+# Copy composer files first for better caching
+COPY composer.json composer.lock ./
 
-# Install Laravel dependencies
-RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+# Install dependencies
+RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist
 
-# Set proper permissions for Laravel
-RUN chown -R www-data:www-data /var/www \
-    && chmod -R 755 /var/www/storage \
-    && chmod -R 755 /var/www/bootstrap/cache
+# Copy rest of application
+COPY . .
 
-# Create storage directories if they don't exist
-RUN mkdir -p /var/www/storage/framework/sessions \
-    && mkdir -p /var/www/storage/framework/views \
-    && mkdir -p /var/www/storage/framework/cache \
-    && mkdir -p /var/www/storage/logs
+# Generate optimized autoload files
+RUN composer dump-autoload --optimize --no-dev
 
-# Expose port (Railway will set this via PORT env variable)
+# Create storage directories and set permissions
+RUN mkdir -p storage/framework/sessions \
+    storage/framework/views \
+    storage/framework/cache/data \
+    storage/logs \
+    bootstrap/cache \
+    && chmod -R 775 storage bootstrap/cache
+
+# Expose port
 EXPOSE 8000
 
-# Start Laravel application
-CMD php artisan config:clear && \
-    php artisan cache:clear && \
-    php artisan storage:link && \
+# Start application
+CMD php artisan config:cache && \
+    php artisan route:cache && \
+    php artisan view:cache && \
+    php artisan migrate --force && \
     php artisan serve --host=0.0.0.0 --port=${PORT:-8000}
