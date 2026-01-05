@@ -16,7 +16,7 @@ class InventoryUnitsController extends Controller
     public function index()
     {
         $units = InventoryUnit::with('item')
-            ->orderBy('created_at', 'desc')
+            ->orderBy('unit_id', 'asc')
             ->paginate(20);
         return view('admin.inventory-units.index', compact('units'));
     }

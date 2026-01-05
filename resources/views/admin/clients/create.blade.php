@@ -12,7 +12,7 @@
                 @csrf
 
                 <div class="mb-3">
-                    <label class="form-label">Name</label>
+                    <label class="form-label">Name <span class="text-danger">*</span></label>
                     <input name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" required>
                     @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
@@ -29,8 +29,15 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Status</label>
-                    <input name="status" value="{{ old('status', 'active') }}" class="form-control">
+                    <label class="form-label">Status <span class="text-danger">*</span></label>
+                    <select name="status" class="form-select @error('status') is-invalid @enderror" required>
+                        <option value="belum deal" {{ old('status', 'belum deal') == 'belum deal' ? 'selected' : '' }}>Belum Deal</option>
+                        <option value="perlu remind dp" {{ old('status') == 'perlu remind dp' ? 'selected' : '' }}>Perlu Remind DP</option>
+                        <option value="perlu remind lunas" {{ old('status') == 'perlu remind lunas' ? 'selected' : '' }}>Perlu Remind Lunas</option>
+                        <option value="perlu mengingat tanggal hari-h" {{ old('status') == 'perlu mengingat tanggal hari-h' ? 'selected' : '' }}>Perlu Mengingat Tanggal Hari-H</option>
+                        <option value="selesai acara" {{ old('status') == 'selesai acara' ? 'selected' : '' }}>Selesai Acara</option>
+                    </select>
+                    @error('status') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
 
                 <div class="mb-3">

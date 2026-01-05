@@ -7,7 +7,9 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h4 mb-0 text-theme-maroon">Partners</h1>
         <div>
-            <a href="{{ route('admin.partners.create') }}" class="btn btn-outline-secondary me-2">New Partner</a>
+            @can('manage-crm')
+                <a href="{{ route('admin.partners.create') }}" class="btn btn-outline-secondary me-2">New Partner</a>
+            @endcan
             <a href="{{ route('dashboard') }}" class="btn btn-outline-secondary">Back</a>
         </div>
     </div>
@@ -21,12 +23,14 @@
             <table class="table table-hover mb-0">
                 <thead class="table-light">
                     <tr>
-                        <th>#</th>
+                        <th>ID</th>
                         <th>Name</th>
                         <th>Contact Person</th>
                         <th>Phone</th>
                         <th>Type</th>
-                        <th class="text-end">Actions</th>
+                        @can('manage-crm')
+                            <th class="text-end">Actions</th>
+                        @endcan
                     </tr>
                 </thead>
                 <tbody>
@@ -37,18 +41,20 @@
                         <td>{{ $partner->contact_person ?? '-' }}</td>
                         <td>{{ $partner->phone ?? '-' }}</td>
                         <td>{{ $partner->type ?? '-' }}</td>
-                        <td class="text-end">
-                            <a href="{{ route('admin.partners.edit', $partner) }}" class="btn btn-sm btn-outline-primary me-2">Edit</a>
-                            <form action="{{ route('admin.partners.destroy', $partner) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Hapus partner ini?');">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-sm btn-danger">Delete</button>
-                            </form>
-                        </td>
+                        @can('manage-crm')
+                            <td class="text-end">
+                                <a href="{{ route('admin.partners.edit', $partner) }}" class="btn btn-sm btn-outline-primary me-2">Edit</a>
+                                <form action="{{ route('admin.partners.destroy', $partner) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Hapus partner ini?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        @endcan
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="text-center py-4">No partners found.</td>
+                        <td colspan="{{ Gate::allows('manage-crm') ? '6' : '5' }}" class="text-center py-4">No partners found.</td>
                     </tr>
                 @endforelse
                 </tbody>

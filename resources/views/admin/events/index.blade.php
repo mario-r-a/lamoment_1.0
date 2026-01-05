@@ -21,7 +21,7 @@
             <table class="table table-hover mb-0">
                 <thead class="table-light">
                     <tr>
-                        <th>#</th>
+                        <th>ID</th>
                         <th>Client</th>
                         <th>Package</th>
                         <th>Type</th>

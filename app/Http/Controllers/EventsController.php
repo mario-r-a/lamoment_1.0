@@ -17,7 +17,7 @@ class EventsController extends Controller
     public function index()
     {
         $events = Event::with(['client', 'package'])
-            ->orderBy('actual_date', 'desc')
+            ->orderBy('event_id', 'asc')
             ->paginate(20);
         return view('admin.events.index', compact('events'));
     }

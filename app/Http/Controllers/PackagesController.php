@@ -30,7 +30,7 @@ class PackagesController extends Controller
     // ===== ADMIN CRUD =====
     public function index()
     {
-        $packages = Package::orderBy('name')->paginate(20);
+        $packages = Package::orderBy('package_id', 'asc')->paginate(20);
         return view('admin.packages.index', compact('packages'));
     }
 

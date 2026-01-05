@@ -16,7 +16,7 @@ class InventoryItemsController extends Controller
     public function index()
     {
         $items = InventoryItem::withCount('units')
-            ->orderBy('name')
+            ->orderBy('inventory_item_id', 'asc')
             ->paginate(20);
         return view('admin.inventory-items.index', compact('items'));
     }

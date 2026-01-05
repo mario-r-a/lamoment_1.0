@@ -25,7 +25,7 @@
             <table class="table table-hover mb-0">
                 <thead class="table-light">
                     <tr>
-                        <th>#</th>
+                        <th>ID</th>
                         <th>Title</th>
                         <th>Requestor</th>
                         <th>Date</th>

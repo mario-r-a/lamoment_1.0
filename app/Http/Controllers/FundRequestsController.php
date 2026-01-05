@@ -18,7 +18,7 @@ class FundRequestsController extends Controller
     public function index()
     {
         $fundRequests = FundRequest::with(['requestor', 'approver'])
-            ->orderBy('created_at', 'desc')
+            ->orderBy('fund_request_id', 'asc')
             ->paginate(20);
         return view('admin.fund-requests.index', compact('fundRequests'));
     }

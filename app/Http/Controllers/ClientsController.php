@@ -9,12 +9,17 @@ class ClientsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'can:manage-crm']);
+        // Semua admin HARUS login untuk akses controller ini
+        $this->middleware('auth');
+        
+        // Hanya CEO & CMO yang bisa Create/Update/Delete
+        // TAPI Index harus dikecualikan agar bisa diakses semua admin
+        $this->middleware('can:manage-crm')->only(['create', 'store', 'edit', 'update', 'destroy']);
     }
 
     public function index()
     {
-        $clients = Client::orderBy('name')->paginate(20);
+        $clients = Client::orderBy('client_id', 'asc')->paginate(20);
         return view('admin.clients.index', compact('clients'));
     }
 
@@ -29,7 +34,7 @@ class ClientsController extends Controller
             'name'   => 'required|string|max:255',
             'phone'  => 'nullable|string|max:50',
             'source' => 'nullable|string|max:100',
-            'status' => 'nullable|string|max:50',
+            'status' => 'required|string|in:belum deal,perlu remind dp,perlu remind lunas,perlu mengingat tanggal hari-h,selesai acara',
             'notes'  => 'nullable|string',
         ]);
 
@@ -50,7 +55,7 @@ class ClientsController extends Controller
             'name'   => 'required|string|max:255',
             'phone'  => 'nullable|string|max:50',
             'source' => 'nullable|string|max:100',
-            'status' => 'nullable|string|max:50',
+            'status' => 'required|string|in:belum deal,perlu remind dp,perlu remind lunas,perlu mengingat tanggal hari-h,selesai acara',
             'notes'  => 'nullable|string',
         ]);
 

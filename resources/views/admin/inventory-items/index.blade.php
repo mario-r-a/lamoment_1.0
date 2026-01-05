@@ -26,7 +26,7 @@
             <table class="table table-hover mb-0">
                 <thead class="table-light">
                     <tr>
-                        <th>#</th>
+                        <th>ID</th>
                         <th>Name</th>
                         <th>Picture</th>
                         <th>Total Units</th>

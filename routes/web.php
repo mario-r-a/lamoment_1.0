@@ -166,7 +166,7 @@ Route::middleware('auth')->group(function () {
                 ->name('admin.reviews.destroy');
 
             // Admin create review (manual)
-            Route::post('/admin/reviews', [\App\Http\Controllers\ReviewsController::class, 'adminStore'])
+            Route::post('/admin/reviews', [ReviewsController::class, 'adminStore'])
                 ->name('admin.reviews.store');
         });
     });

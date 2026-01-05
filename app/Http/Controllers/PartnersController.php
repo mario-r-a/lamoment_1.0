@@ -9,7 +9,11 @@ class PartnersController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'can:manage-crm']);
+        // Semua admin bisa akses index (view only)
+        $this->middleware('auth');
+        
+        // Hanya CEO & CMO yang bisa Create/Update/Delete
+        $this->middleware('can:manage-crm')->except(['index']);
     }
 
     public function index()
