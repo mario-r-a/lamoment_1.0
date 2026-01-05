@@ -41,7 +41,14 @@ RUN mkdir -p storage/framework/sessions \
     storage/framework/cache/data \
     storage/logs \
     bootstrap/cache \
-    && chmod -R 777 storage bootstrap/cache
+    public/storage \
+    && chmod -R 777 storage bootstrap/cache public/storage
+
+# Create storage symlink
+RUN php artisan storage:link || true
+
+# Ensure all public assets are accessible
+RUN chmod -R 755 public
 
 # Expose port
 EXPOSE 8000
@@ -50,6 +57,8 @@ EXPOSE 8000
 RUN echo '#!/bin/bash\n\
 set -e\n\
 echo "Starting application..."\n\
+echo "Creating storage link..."\n\
+php artisan storage:link || true\n\
 echo "Running migrations..."\n\
 php artisan migrate --force || true\n\
 echo "Starting server on port ${PORT:-8000}..."\n\
