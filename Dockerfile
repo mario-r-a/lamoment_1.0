@@ -33,17 +33,17 @@ RUN chown -R www-data:www-data /var/www \
     && chmod -R 755 /var/www/storage \
     && chmod -R 755 /var/www/bootstrap/cache
 
+# Create storage directories if they don't exist
+RUN mkdir -p /var/www/storage/framework/sessions \
+    && mkdir -p /var/www/storage/framework/views \
+    && mkdir -p /var/www/storage/framework/cache \
+    && mkdir -p /var/www/storage/logs
+
 # Expose port (Railway will set this via PORT env variable)
 EXPOSE 8000
 
-# Create entrypoint script for Railway
-RUN echo '#!/bin/sh\n\
-php artisan config:cache\n\
-php artisan route:cache\n\
-php artisan view:cache\n\
-php artisan migrate --force\n\
-php artisan serve --host=0.0.0.0 --port=${PORT:-8000}' > /entrypoint.sh \
-    && chmod +x /entrypoint.sh
-
 # Start Laravel application
-CMD ["/entrypoint.sh"]
+CMD php artisan config:clear && \
+    php artisan cache:clear && \
+    php artisan storage:link && \
+    php artisan serve --host=0.0.0.0 --port=${PORT:-8000}
