@@ -1,4 +1,4 @@
-# Use official PHP 8.4 CLI image (better for artisan serve)
+# Use official PHP 8.4 CLI image
 FROM php:8.4-cli
 
 # Set working directory
@@ -41,14 +41,24 @@ RUN mkdir -p storage/framework/sessions \
     storage/framework/cache/data \
     storage/logs \
     bootstrap/cache \
-    && chmod -R 775 storage bootstrap/cache
+    && chmod -R 777 storage bootstrap/cache
 
 # Expose port
 EXPOSE 8000
 
+# Create startup script
+RUN echo '#!/bin/bash\n\
+set -e\n\
+echo "Clearing caches..."\n\
+php artisan config:clear\n\
+php artisan cache:clear\n\
+php artisan view:clear\n\
+php artisan route:clear\n\
+echo "Running migrations..."\n\
+php artisan migrate --force || true\n\
+echo "Starting server on port ${PORT:-8000}..."\n\
+exec php artisan serve --host=0.0.0.0 --port=${PORT:-8000}' > /start.sh \
+    && chmod +x /start.sh
+
 # Start application
-CMD php artisan config:cache && \
-    php artisan route:cache && \
-    php artisan view:cache && \
-    php artisan migrate --force && \
-    php artisan serve --host=0.0.0.0 --port=${PORT:-8000}
+CMD ["/start.sh"]
