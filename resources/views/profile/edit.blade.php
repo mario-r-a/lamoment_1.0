@@ -61,13 +61,13 @@
 
                     <div class="d-grid gap-2">
                         @can('manage-operations')
-                            <a href="{{ route('events.index') }}" class="btn btn-sm btn-primary">Events</a>
-                            <a href="{{ route('packages.index') }}" class="btn btn-sm btn-outline-primary">Packages</a>
+                            <a href="{{ route('admin.events.index') }}" class="btn btn-sm btn-primary">Events</a>
+                            <a href="{{ route('admin.packages.index') }}" class="btn btn-sm btn-outline-primary">Packages</a>
                         @endcan
 
                         @can('manage-crm')
-                            <a href="{{ route('clients.index') }}" class="btn btn-sm btn-outline-success">Clients</a>
-                            <a href="{{ route('partners.index') }}" class="btn btn-sm btn-outline-success">Partners</a>
+                            <a href="{{ route('admin.clients.index') }}" class="btn btn-sm btn-outline-success">Clients</a>
+                            <a href="{{ route('admin.partners.index') }}" class="btn btn-sm btn-outline-success">Partners</a>
                         @endcan
 
                         <a href="{{ route('profile.edit') }}" class="btn btn-sm btn-light">Refresh</a>

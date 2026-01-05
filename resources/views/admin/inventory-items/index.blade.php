@@ -1,13 +1,14 @@
 @extends('layouts.mainlayout')
 
-@section('title', 'Packages - Lamoment')
+@section('title', 'Inventory Items - Lamoment')
 
 @section('content')
 <div class="container py-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="h4 mb-0 text-theme-maroon">Packages</h1>
+        <h1 class="h4 mb-0 text-theme-maroon">Inventory Items</h1>
         <div>
-            <a href="{{ route('admin.packages.create') }}" class="btn btn-outline-secondary me-2">New Package</a>
+            <a href="{{ route('admin.inventory-items.create') }}" class="btn btn-outline-secondary me-2">New Item</a>
+            <a href="{{ route('admin.inventory-units.index') }}" class="btn btn-outline-secondary me-2">View Units</a>
             <a href="{{ route('dashboard') }}" class="btn btn-outline-secondary">Back</a>
         </div>
     </div>
@@ -27,37 +28,31 @@
                     <tr>
                         <th>#</th>
                         <th>Name</th>
-                        <th>Image</th>
-                        <th>Description</th>
-                        <th>Base Price</th>
-                        <th>Status</th>
+                        <th>Picture</th>
+                        <th>Total Units</th>
                         <th class="text-end">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                @forelse($packages as $package)
+                @forelse($items as $item)
                     <tr>
-                        <td>{{ $package->package_id }}</td>
-                        <td>{{ $package->name }}</td>
+                        <td>{{ $item->inventory_item_id }}</td>
+                        <td>{{ $item->name }}</td>
                         <td>
-                            @if($package->has_image)
-                                <img src="{{ $package->image_url }}" 
-                                     alt="{{ $package->name }}" 
+                            @if($item->picture && Storage::disk('public')->exists($item->picture))
+                                <img src="{{ Storage::url($item->picture) }}" 
+                                     alt="{{ $item->name }}" 
                                      style="max-width: 80px; height: 80px; object-fit: cover; border-radius: 4px;">
                             @else
                                 <span class="text-muted">No image</span>
                             @endif
                         </td>
-                        <td>{{ substr($package->description ?? '-', 0, 40) }}...</td>
-                        <td>Rp {{ number_format($package->base_price, 0, ',', '.') }}</td>
                         <td>
-                            <span class="badge {{ $package->is_active ? 'bg-success' : 'bg-secondary' }}">
-                                {{ $package->is_active ? 'Active' : 'Inactive' }}
-                            </span>
+                            <span class="badge bg-info">{{ $item->units_count ?? 0 }} units</span>
                         </td>
                         <td class="text-end">
-                            <a href="{{ route('admin.packages.edit', $package) }}" class="btn btn-sm btn-outline-primary me-2">Edit</a>
-                            <form action="{{ route('admin.packages.destroy', $package) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Hapus package ini?');">
+                            <a href="{{ route('admin.inventory-items.edit', $item) }}" class="btn btn-sm btn-outline-primary me-2">Edit</a>
+                            <form action="{{ route('admin.inventory-items.destroy', $item) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Hapus item ini? Units terkait akan ikut terhapus.');">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-sm btn-danger">Delete</button>
@@ -66,7 +61,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7" class="text-center py-4">No packages found.</td>
+                        <td colspan="5" class="text-center py-4">No inventory items found.</td>
                     </tr>
                 @endforelse
                 </tbody>
@@ -75,7 +70,7 @@
     </div>
 
     <div class="mt-3">
-        {{ $packages->links() }}
+        {{ $items->links() }}
     </div>
 </div>
 @endsection

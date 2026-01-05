@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Package extends Model
 {
@@ -16,7 +17,8 @@ class Package extends Model
         'name',
         'description',
         'base_price',
-        'is_active'
+        'is_active',
+        'image'
     ];
 
     // Relation ke Event (one-to-many)
@@ -29,5 +31,20 @@ class Package extends Model
     public function items()
     {
         return $this->hasMany(PackageItem::class, 'package_id');
+    }
+
+    // Helper: Get image URL
+    public function getImageUrlAttribute()
+    {
+        if ($this->image && Storage::disk('public')->exists($this->image)) {
+            return Storage::url($this->image);
+        }
+        return asset('images/packages/default-package.webp'); // fallback image
+    }
+
+    // Helper: Check if has image
+    public function getHasImageAttribute()
+    {
+        return $this->image && Storage::disk('public')->exists($this->image);
     }
 }

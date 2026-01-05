@@ -16,13 +16,17 @@ class FaqsController extends Controller
     // ===== PUBLIC =====
     public function publicIndex()
     {
-        // Group FAQs by active categories and eager-load faqs to prevent N+1
+        // Get only active categories with at least one active FAQ
         $categories = FaqCategory::with(['faqs' => function ($q) {
             $q->where('is_active', true)->orderBy('position');
         }])
         ->where('is_active', true)
         ->orderBy('position')
-        ->get();
+        ->get()
+        ->filter(function($category) {
+            // Only include categories that have at least one active FAQ
+            return $category->faqs->count() > 0;
+        });
 
         return view('public.faqs', compact('categories'));
     }
@@ -30,7 +34,14 @@ class FaqsController extends Controller
     // ===== ADMIN CRUD =====
     public function index()
     {
-        $faqs = Faq::with('category')->orderBy('position')->paginate(20);
+        // Order by category position first, then by FAQ position
+        $faqs = Faq::with(['category'])
+            ->join('faq_categories', 'faqs.faq_category_id', '=', 'faq_categories.faq_category_id')
+            ->select('faqs.*')
+            ->orderBy('faq_categories.position')
+            ->orderBy('faqs.position')
+            ->paginate(20);
+            
         return view('admin.faqs.index', compact('faqs'));
     }
 

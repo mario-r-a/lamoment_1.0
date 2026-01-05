@@ -35,7 +35,13 @@ class AppServiceProvider extends ServiceProvider
         // --- GATE: FINANCE (Fund Request) ---
         // Fund Request dipegang CEO & CFO.
         // CMO & COO hanya bisa create/read, tidak bisa delete atau approve.
-        Gate::define('manage-finance', function (User $user) {
+        // Semua admin bisa akses fund requests
+        Gate::define('access-fund-requests', function (User $user) {
+            return in_array($user->role, ['CEO', 'CFO', 'CMO', 'COO']);
+        });
+
+        // Hanya CEO & CFO yang bisa approve/reject/delete
+        Gate::define('manage-fund-requests', function (User $user) {
             return in_array($user->role, ['CEO', 'CFO']);
         });
 

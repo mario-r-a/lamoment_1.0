@@ -119,7 +119,7 @@
                 Reviews from All Across The World
             </h1>
             <p class="lead" style="color: var(--text-dark);">
-                From birthdays to special celebrations, our phones are designed to capture every unforgettable moment. Experience it through the voices of our customers.
+                From birthdays to weddings to special celebrations, our phones are designed to capture every unforgettable moment. Experience it through the voices of our customers.
             </p>
         </div>
     </div>
@@ -402,7 +402,7 @@
 
                                                     <div class="mb-3">
                                                         <label class="form-label">Date</label>
-                                                        <input type="date" name="date" value="{{ $review->date->format('Y-m-d') }}" class="form-control" required>
+                                                        <input type="date" name="date" class="form-control edit-date-input" value="{{ $review->date->format('Y-m-d') }}" required>
                                                     </div>
 
                                                     <div class="mb-3 form-check">
@@ -515,7 +515,6 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(r => r.json())
         .then(data => {
             if (data.html) {
-                // robust container lookup (support different container ids/classes)
                 const container = document.getElementById('reviewsGrid')
                     || document.getElementById('reviewsMasonry')
                     || document.querySelector('.reviews-masonry')
@@ -545,6 +544,18 @@ document.addEventListener('DOMContentLoaded', function () {
          });
     });
 
+    // Validasi untuk edit date inputs (tidak bisa setelah hari ini)
+    const editDateInputs = document.querySelectorAll('.edit-date-input');
+    editDateInputs.forEach(input => {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        const maxDate = `${year}-${month}-${day}`;
+        
+        input.setAttribute('max', maxDate);
+    });
+
     // ensure admin modal date & rating defaults when opened
     var adminModal = document.getElementById('adminCreateReviewModal');
     if (adminModal) {
@@ -554,6 +565,9 @@ document.addEventListener('DOMContentLoaded', function () {
             if (dateInput) {
                 var today = new Date().toISOString().slice(0,10);
                 dateInput.value = today;
+                
+                // Set max attribute to today (tidak bisa setelah hari ini)
+                dateInput.setAttribute('max', today);
             }
             // ensure default rating 5 is checked
             var star5 = document.getElementById('adminStar5');

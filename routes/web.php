@@ -11,6 +11,9 @@ use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\PartnersController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\TollController;
+use App\Http\Controllers\InventoryItemsController;
+use App\Http\Controllers\InventoryUnitsController;
+use App\Http\Controllers\FundRequestsController;
 use Illuminate\Support\Facades\Route;
 
 // --- PUBLIC ROUTES (Guest + Auth) ---
@@ -116,6 +119,42 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/toll', [TollController::class, 'index'])->name('admin.toll.index');
     Route::post('/admin/toll/calculate', [TollController::class, 'calculate'])->name('admin.toll.calculate');
 
+    // Inventory Items (CEO, CFO, COO - gate: manage-operations)
+    Route::resource('admin/inventory-items', InventoryItemsController::class)
+        ->except(['show'])
+        ->names([
+            'index'   => 'admin.inventory-items.index',
+            'create'  => 'admin.inventory-items.create',
+            'store'   => 'admin.inventory-items.store',
+            'edit'    => 'admin.inventory-items.edit',
+            'update'  => 'admin.inventory-items.update',
+            'destroy' => 'admin.inventory-items.destroy',
+        ]);
+
+    // Inventory Units (CEO, CFO, COO - gate: manage-operations)
+    Route::resource('admin/inventory-units', InventoryUnitsController::class)
+        ->except(['show'])
+        ->names([
+            'index'   => 'admin.inventory-units.index',
+            'create'  => 'admin.inventory-units.create',
+            'store'   => 'admin.inventory-units.store',
+            'edit'    => 'admin.inventory-units.edit',
+            'update'  => 'admin.inventory-units.update',
+            'destroy' => 'admin.inventory-units.destroy',
+        ]);
+
+    // Fund Requests (CEO & CFO - gate: manage-finance)
+    Route::resource('admin/fund-requests', FundRequestsController::class)
+        ->except(['show'])
+        ->names([
+            'index'   => 'admin.fund-requests.index',
+            'create'  => 'admin.fund-requests.create',
+            'store'   => 'admin.fund-requests.store',
+            'edit'    => 'admin.fund-requests.edit',
+            'update'  => 'admin.fund-requests.update',
+            'destroy' => 'admin.fund-requests.destroy',
+        ]);
+    
     // Admin-only review actions
     Route::middleware(['auth'])->group(function () {
         Route::middleware(['can:manage-content'])->group(function () {

@@ -29,10 +29,11 @@
                     </a>
                 </li>
                 <li class="mb-2">
-                    Call us at
-                    <a href="tel:082318606525" class="text-decoration-none" style="color: var(--primary-taupe);">
+                    Chat or Call us at
+                    <a href="https://wa.me/6282318606525" target="_blank" rel="noopener" class="text-decoration-none" style="color: var(--primary-taupe);">
                         0823-1860-6525
                     </a>
+                    (WhatsApp)
                 </li>
             </ol>
 
