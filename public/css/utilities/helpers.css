@@ -1,0 +1,11 @@
+.text-theme-maroon { 
+    color: var(--primary-maroon) !important; 
+}
+
+.text-theme-taupe { 
+    color: var(--primary-taupe) !important; 
+}
+
+.bg-theme-beige { 
+    background-color: var(--primary-beige) !important; 
+}

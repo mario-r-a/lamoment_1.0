@@ -1,0 +1,9 @@
+.card {
+    background-color: var(--primary-beige) !important;
+    border: 1px solid rgba(146, 116, 88, 0.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.card-body {
+    color: var(--text-dark);
+}

@@ -1,0 +1,11 @@
+.alert-success {
+    background-color: rgba(104, 29, 29, 0.08);
+    border-color: var(--primary-maroon);
+    color: #4a1515;
+}
+
+.alert-info {
+    background-color: rgba(146, 116, 88, 0.08);
+    border-color: var(--primary-taupe);
+    color: #5a4535;
+}

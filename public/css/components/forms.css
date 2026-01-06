@@ -1,0 +1,14 @@
+.form-control {
+    border-color: rgba(146, 116, 88, 0.3);
+    color: var(--text-dark);
+}
+
+.form-control:focus {
+    border-color: var(--primary-taupe);
+    box-shadow: 0 0 0 0.2rem rgba(146, 116, 88, 0.15);
+}
+
+.form-label {
+    color: var(--text-dark);
+    font-weight: 500;
+}

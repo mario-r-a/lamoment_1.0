@@ -1,0 +1,12 @@
+/* Global responsive utilities - add as needed */
+
+/* Mobile tweaks */
+@media (max-width: 767px) {
+    .hero-section .display-4 { 
+        font-size: 1.8rem; 
+    }
+    
+    .hero-section .lead { 
+        font-size: 0.95rem; 
+    }
+}

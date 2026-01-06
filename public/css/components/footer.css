@@ -1,0 +1,27 @@
+footer {
+    background-color: var(--primary-beige) !important;
+    color: var(--primary-taupe);
+    border-top: 1px solid rgba(146, 116, 88, 0.15);
+}
+
+footer a {
+    color: var(--primary-maroon);
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+footer a:hover {
+    color: var(--primary-maroon-dark);
+}
+
+footer .bi-instagram,
+footer .bi-tiktok {
+    color: var(--primary-maroon) !important;
+    font-size: 2rem !important;
+    transition: color 0.2s;
+}
+
+footer a:hover .bi-instagram,
+footer a:hover .bi-tiktok {
+    color: var(--primary-maroon-dark) !important;
+}
