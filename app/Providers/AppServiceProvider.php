@@ -22,6 +22,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Trust Railway proxy for HTTPS
+        if (config('app.env') === 'production') {
+            \Illuminate\Support\Facades\URL::forceScheme('https');
+        }
+
         // UNTUK PAGINATION
         Paginator::useBootstrapFive();
 
