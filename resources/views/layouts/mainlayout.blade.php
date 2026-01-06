@@ -17,10 +17,7 @@
     <link rel="preload" href="{{ asset('fonts/PT_Serif/PTSerif-Bold.woff2') }}" as="font" type="font/woff2" crossorigin>
 
     {{-- ✅ CUSTOM CSS (public/css/style.css) - WAJIB ADA --}}
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    
-    {{-- Cache busting dengan versioning --}}
-    <link href="{{ asset('css/style.css?v=' . filemtime(public_path('css/style.css'))) }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}?v={{ config('app.version', '1.0.0') }}" rel="stylesheet">
     
     {{-- Yield untuk CSS tambahan per-page --}}
     @yield('styles')
