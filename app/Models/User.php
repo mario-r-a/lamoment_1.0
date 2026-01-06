@@ -38,11 +38,27 @@ class User extends Authenticatable // ⚠️ Pastikan extends Authenticatable, B
         ];
     }
 
-    // 🔥 INI KUNCINYA 🔥
-    // Kita harus override fungsi bawaan Laravel.
-    // "Hei Laravel, kalau mau ambil password user ini, ambil dari kolom 'password_hash' ya, bukan 'password' biasa."
+    // Ketika ambil password user, ambil dari kolom 'password_hash', bukan 'password' biasa
     public function getAuthPassword()
     {
         return $this->password_hash;
+    }
+
+    // Ketika set 'password', kita ke 'password_hash'
+    public function setAttribute($key, $value)
+    {
+        if ($key === 'password') {
+            $key = 'password_hash';
+        }
+        return parent::setAttribute($key, $value);
+    }
+
+    // Override getAttribute untuk password
+    public function getAttribute($key)
+    {
+        if ($key === 'password') {
+            return $this->password_hash;
+        }
+        return parent::getAttribute($key);
     }
 }

@@ -73,10 +73,15 @@ echo "Creating storage link..."\n\
 php artisan storage:link || true\n\
 echo ""\n\
 echo "Running database migrations..."\n\
-php artisan migrate --force || true\n\
-echo ""\n\
-echo "Running database seeders..."\n\
-php artisan db:seed --force || echo "Seeder already ran or failed (safe to ignore)"\n\
+if [ "$RESET_DATABASE" = "true" ]; then\n\
+  echo "⚠️  RESET_DATABASE=true detected - Recreating database..."\n\
+  php artisan migrate:fresh --force --seed\n\
+else\n\
+  php artisan migrate --force || true\n\
+  echo ""\n\
+  echo "Running database seeders..."\n\
+  php artisan db:seed --force || echo "Seeder already ran or failed (safe to ignore)"\n\
+fi\n\
 echo ""\n\
 echo "Starting server on port ${PORT:-8000}..."\n\
 exec php artisan serve --host=0.0.0.0 --port=${PORT:-8000} --no-reload' > /start.sh \

@@ -29,12 +29,20 @@
                             @enderror
                         </div>
 
+                        {{-- ✅ Password dengan Toggle Show/Hide --}}
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input id="password" type="password" name="password" required
-                                class="form-control @error('password') is-invalid @enderror" autocomplete="current-password">
+                            <div class="input-group">
+                                <input id="password" type="password" name="password" required
+                                    class="form-control @error('password') is-invalid @enderror" 
+                                    autocomplete="current-password">
+                                <button class="btn btn-outline-secondary" type="button" id="togglePassword" 
+                                        style="border-color: rgba(146, 116, 88, 0.3);">
+                                    <i class="bi bi-eye" id="togglePasswordIcon"></i>
+                                </button>
+                            </div>
                             @error('password')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror
                         </div>
 
@@ -58,4 +66,30 @@
         </div>
     </div>
 </div>
+
+{{-- ✅ JavaScript untuk Toggle Password --}}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+    const toggleIcon = document.getElementById('togglePasswordIcon');
+
+    if (togglePassword && passwordInput && toggleIcon) {
+        togglePassword.addEventListener('click', function() {
+            // Toggle password visibility
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+
+            // Toggle icon
+            if (type === 'password') {
+                toggleIcon.classList.remove('bi-eye-slash');
+                toggleIcon.classList.add('bi-eye');
+            } else {
+                toggleIcon.classList.remove('bi-eye');
+                toggleIcon.classList.add('bi-eye-slash');
+            }
+        });
+    }
+});
+</script>
 @endsection

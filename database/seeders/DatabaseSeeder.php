@@ -10,23 +10,38 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // ✅ CHECK: Jangan buat user CEO jika sudah ada
-        $ceoExists = User::where('email', env('ADMIN_EMAIL', 'admin@lamoment.id'))->exists();
+        $adminEmail = env('ADMIN_EMAIL', 'admin@lamoment.id');
+        $adminName = env('ADMIN_NAME', 'La Moment Admin');
+        $adminPassword = env('ADMIN_PASSWORD', 'DefaultPassword123!');
+
+        // ✅ CHECK: Apakah user CEO sudah ada?
+        $ceoUser = User::where('email', $adminEmail)->first();
         
-        if (!$ceoExists) {
-            // 1. CEO (Super Admin) - Password dari Environment Variable
+        if ($ceoUser) {
+            // User sudah ada - UPDATE password & details
+            $ceoUser->update([
+                'name' => $adminName,
+                'password_hash' => Hash::make($adminPassword),
+                'role' => 'CEO',
+                'status' => 'active',
+            ]);
+            
+            echo "CEO user updated successfully! (Email: {$adminEmail})\n";
+        } else {
+            // User belum ada - CREATE new user
             User::create([
-                'name' => env('ADMIN_NAME', 'La Moment Admin'),
-                'email' => env('ADMIN_EMAIL', 'admin@lamoment.id'),
-                'password_hash' => Hash::make(env('ADMIN_PASSWORD', 'DefaultPassword123!')),
+                'name' => $adminName,
+                'email' => $adminEmail,
+                'password_hash' => Hash::make($adminPassword),
                 'role' => 'CEO',
                 'status' => 'active',
             ]);
 
-            echo "CEO user created successfully!\n";
-        } else {
-            echo "CEO user already exists, skipping...\n";
+            echo "CEO user created successfully! (Email: {$adminEmail})\n";
         }
+
+        // ✅ CALL DEMO DATA SEEDER
+        $this->call(DemoDataSeeder::class);
 
         // Optional: Create other default users (CFO, CMO, COO)
         // Uncomment jika diperlukan untuk testing
