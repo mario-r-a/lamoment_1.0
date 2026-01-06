@@ -59,17 +59,25 @@ EXPOSE 8000
 # Create startup script
 RUN echo '#!/bin/bash\n\
 set -e\n\
-echo "Starting application..."\n\
+echo "=== Starting Lamoment Application ==="\n\
+echo ""\n\
 echo "Verifying public assets..."\n\
 ls -la public/css/style.css || echo "ERROR: style.css missing!"\n\
+echo ""\n\
 echo "Clearing Laravel caches..."\n\
 php artisan config:clear || true\n\
 php artisan view:clear || true\n\
 php artisan cache:clear || true\n\
+echo ""\n\
 echo "Creating storage link..."\n\
 php artisan storage:link || true\n\
-echo "Running migrations..."\n\
+echo ""\n\
+echo "Running database migrations..."\n\
 php artisan migrate --force || true\n\
+echo ""\n\
+echo "Running database seeders..."\n\
+php artisan db:seed --force || echo "Seeder already ran or failed (safe to ignore)"\n\
+echo ""\n\
 echo "Starting server on port ${PORT:-8000}..."\n\
 exec php artisan serve --host=0.0.0.0 --port=${PORT:-8000} --no-reload' > /start.sh \
     && chmod +x /start.sh
