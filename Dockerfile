@@ -62,6 +62,10 @@ set -e\n\
 echo "Starting application..."\n\
 echo "Verifying public assets..."\n\
 ls -la public/css/style.css || echo "ERROR: style.css missing!"\n\
+echo "Clearing Laravel caches..."\n\
+php artisan config:clear || true\n\
+php artisan view:clear || true\n\
+php artisan cache:clear || true\n\
 echo "Creating storage link..."\n\
 php artisan storage:link || true\n\
 echo "Running migrations..."\n\
