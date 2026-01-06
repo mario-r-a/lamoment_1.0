@@ -1,0 +1,80 @@
+/* === What Makes Us Different Section === */
+.what-different-section {
+    background-color: var(--primary-beige);
+    padding: 4rem 0;
+}
+
+.what-different-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 2.5rem;
+}
+
+.what-different-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.what-different-item .icon-wrap {
+    flex-shrink: 0;
+    width: 70px;
+}
+
+.what-different-item .icon-wrap img {
+    width: 100%;
+    height: auto;
+}
+
+.what-different-item h4 {
+    font-family: 'PT Serif', serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--text-dark);
+    margin-bottom: 0.4rem;
+}
+
+.what-different-item p {
+    font-family: 'PT Serif', serif;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* What Different - Responsive */
+@media (max-width: 991px) {
+    .what-different-section {
+        padding: 3rem 0;
+    }
+    
+    .what-different-title {
+        font-size: 1.75rem;
+        margin-bottom: 2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .what-different-section {
+        padding: 2.5rem 0;
+    }
+    
+    .what-different-title {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+    
+    .what-different-item .icon-wrap {
+        width: 60px;
+    }
+    
+    .what-different-item h4 {
+        font-size: 1rem;
+    }
+    
+    .what-different-item p {
+        font-size: 0.9rem;
+    }
+}
