@@ -174,6 +174,9 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+<?php
+
+use Illuminate\Support\Facades\Route;
 
 // Temporary debug route - REMOVE IN PRODUCTION
 Route::get('/debug-css', function () {
