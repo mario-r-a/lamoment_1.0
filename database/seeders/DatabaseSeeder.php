@@ -10,40 +10,56 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // 1. CEO (Super Admin - Bisa segalanya)
-        User::create([
-            'name' => 'Budi CEO',
-            'email' => 'ceo@company.com',
-            'password_hash' => Hash::make('passceo'),
-            'role' => 'CEO',
-            'status' => 'active',
-        ]);
+        // ✅ CHECK: Jangan buat user CEO jika sudah ada
+        $ceoExists = User::where('email', env('ADMIN_EMAIL', 'admin@lamoment.id'))->exists();
+        
+        if (!$ceoExists) {
+            // 1. CEO (Super Admin) - Password dari Environment Variable
+            User::create([
+                'name' => env('ADMIN_NAME', 'La Moment Admin'),
+                'email' => env('ADMIN_EMAIL', 'admin@lamoment.id'),
+                'password_hash' => Hash::make(env('ADMIN_PASSWORD', 'DefaultPassword123!')),
+                'role' => 'CEO',
+                'status' => 'active',
+            ]);
 
-        // 2. CFO (Urusan Fund Request)
-        User::create([
-            'name' => 'Siti CFO',
-            'email' => 'cfo@company.com',
-            'password_hash' => Hash::make('passcfo'),
-            'role' => 'CFO',
-            'status' => 'active',
-        ]);
+            echo "CEO user created successfully!\n";
+        } else {
+            echo "CEO user already exists, skipping...\n";
+        }
 
-        // 3. CMO (Urusan Client & Partner)
-        User::create([
-            'name' => 'Andi CMO',
-            'email' => 'cmo@company.com',
-            'password_hash' => Hash::make('passcmo'),
-            'role' => 'CMO',
-            'status' => 'active',
-        ]);
+        // Optional: Create other default users (CFO, CMO, COO)
+        // Uncomment jika diperlukan untuk testing
+        /*
+        if (!User::where('email', 'cfo@lamoment.id')->exists()) {
+            User::create([
+                'name' => env('CFO_NAME', 'CFO User'),
+                'email' => env('CFO_EMAIL', 'cfo@lamoment.id'),
+                'password_hash' => Hash::make(env('CFO_PASSWORD', 'DefaultPassword123!')),
+                'role' => 'CFO',
+                'status' => 'active',
+            ]);
+        }
 
-        // 4. COO (Operasional/Events)
-        User::create([
-            'name' => 'Rina COO',
-            'email' => 'coo@company.com',
-            'password_hash' => Hash::make('passcoo'),
-            'role' => 'COO',
-            'status' => 'active',
-        ]);
+        if (!User::where('email', 'cmo@lamoment.id')->exists()) {
+            User::create([
+                'name' => env('CMO_NAME', 'CMO User'),
+                'email' => env('CMO_EMAIL', 'cmo@lamoment.id'),
+                'password_hash' => Hash::make(env('CMO_PASSWORD', 'DefaultPassword123!')),
+                'role' => 'CMO',
+                'status' => 'active',
+            ]);
+        }
+
+        if (!User::where('email', 'coo@lamoment.id')->exists()) {
+            User::create([
+                'name' => env('COO_NAME', 'COO User'),
+                'email' => env('COO_EMAIL', 'coo@lamoment.id'),
+                'password_hash' => Hash::make(env('COO_PASSWORD', 'DefaultPassword123!')),
+                'role' => 'COO',
+                'status' => 'active',
+            ]);
+        }
+        */
     }
 }
